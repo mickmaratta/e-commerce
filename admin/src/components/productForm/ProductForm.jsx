@@ -2,30 +2,32 @@ import { Publish } from '@mui/icons-material';
 import React from 'react';
 import "./productForm.css"
 
-const ProductForm = ({img, newProduct}) => {
+const ProductForm = ({product, newProduct}) => {
   return (
     <div>
         <form className={newProduct? "newProductForm" : "productForm"}>
             <div className="productFormLeft">
                 <label>Product Name</label>
-                <input type="text" placeholder='Apple Airpods' />
-                <label>Stock</label>
-                <input type="number" placeholder='100' />
-                <label>Active</label>
-                <select name="active" id="active">
+                <input type="text" placeholder={product && product.title} />
+                <label>Product Description</label>
+                <textarea type="textarea" placeholder={product && product.desc} />
+                <label>Price</label>
+                <input type="number" placeholder={product && product.price} />
+                <label>In Stock</label>
+                <select name="inStock" id="active">
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
             </div>
             <div className="productFormRight">
                 <div className="productUpload">
-                    {img && <img src={img} alt="" className='productUploadImg'/> }
-                    <label for="file">
+                    {product && <img src={product.img} alt="" className='productUploadImg'/> }
+                    <label htmlFor="file">
                         <Publish className='productFormIcon' />
                     </label>
-                    <input type="file" id="file" style={img && {display: "none" }}/>
+                    <input type="file" id="file" style={product && {display: "none" }}/>
                 </div>
-                <button className={newProduct ? "newProductButton" : "productButton"}>{newProduct ? "Create" : "Update"}</button>
+                <button className={ newProduct ? "newProductButton" : "productButton"}>{newProduct ? "Create" : "Update"}</button>
             </div>
         </form>
     </div>

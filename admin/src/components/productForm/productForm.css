@@ -12,6 +12,7 @@
 
 .productFormLeft {
     display: flex;
+    flex: 2;
     flex-direction: column;
 }
 
@@ -39,9 +40,11 @@
 
 .productFormRight {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: space-around;
     margin-top: 10px;
+    margin-left: 20px;
 }
 
 .productFormIcon {
