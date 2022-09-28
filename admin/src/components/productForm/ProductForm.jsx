@@ -15,8 +15,8 @@ const ProductForm = ({product, newProduct}) => {
                 <input type="number" placeholder={product && product.price} />
                 <label>In Stock</label>
                 <select name="inStock" id="active">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                 </select>
             </div>
             <div className="productFormRight">

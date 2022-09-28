@@ -2,3 +2,73 @@
     flex: 4;
     padding: 20px;
 }
+
+.addProductForm {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 40%;
+}
+
+.addProductFormLeft {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+}
+
+.addProductFormLeft>label {
+    margin-bottom: 10px;
+    color: gray;
+}
+
+.addProductFormLeft>input {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.addProductFormLeft>select {
+    margin-bottom: 10px;
+    padding: 7px;
+    color: gray;
+}
+
+.addProductForm>option {
+    margin: 5px;
+}
+
+.addProductFormRight {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.addProductFormIcon {
+    margin-right: 10px;
+}
+
+.addProductUpload {
+    display: flex;
+    align-items: center;
+}
+
+.addProductButton {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: darkblue;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+.addProductUploadImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 20px;
+}

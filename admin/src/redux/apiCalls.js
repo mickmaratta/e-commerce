@@ -1,7 +1,15 @@
 import { publicRequest, userRequest } from "../requestMethods";
-import { deleteProductFailure, deleteProductStart, deleteProductSuccess, getProductFailure, getProductStart, getProductSuccess } from "./productSlice";
+import { 
+    addProductSuccess,
+    deleteProductSuccess, 
+    getProductSuccess,
+    productFailure,
+    productStart, 
+    updateProductSuccess} 
+from "./productSlice";
 import { loginFailure, loginStart, loginSuccess } from "./userSlice"
 
+//LOGIN
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
     try {
@@ -13,25 +21,52 @@ export const login = async (dispatch, user) => {
     }
 }
 
+//GET ALL PRODUCTS
 export const getProducts = async (dispatch) => {
-    dispatch(getProductStart());
+    dispatch(productStart());
     try {
         const res = await publicRequest.get("/products")
         dispatch(getProductSuccess(res.data));
     } catch (error) {
         console.log(error)
-        dispatch(getProductFailure());
+        dispatch(productFailure());
     }
 }
 
+//DELETE PRODUCT
 export const deleteProduct = async (id, dispatch) => {
-    dispatch(deleteProductStart());
+    dispatch(productStart());
     try {
         //DELETE FROM DB
         //const res = await userRequest.delete(`/products/${id}`)
         dispatch(deleteProductSuccess(id));
     } catch (error) {
         console.log(error)
-        dispatch(deleteProductFailure());
+        dispatch(productFailure());
+    }
+}
+
+//UPDATE PRODUCT
+export const updateProduct = async (id, product, dispatch) => {
+    dispatch(productStart());
+    try {
+        //UPDATE DB
+        //const res = await userRequest.delete(`/products/${id}`)
+        dispatch(updateProductSuccess({id, product}));
+    } catch (error) {
+        console.log(error)
+        dispatch(productFailure());
+    }
+}
+
+//ADD PRODUCT
+export const addProduct = async (product, dispatch) => {
+    dispatch(productStart());
+    try {
+        const res = await userRequest.post(`/products/`, product)
+        dispatch(addProductSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(productFailure());
     }
 }

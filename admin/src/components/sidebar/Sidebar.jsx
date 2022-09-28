@@ -33,11 +33,11 @@ const Sidebar = () => {
                             Home
                         </li>
                     </Link>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <Timeline className='sidebarIcon'/>
                         Analytics
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <TrendingUp className='sidebarIcon'/>
                         Sales
                     </li>
@@ -58,11 +58,11 @@ const Sidebar = () => {
                         Products
                     </li>
                     </Link>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <AttachMoney className='sidebarIcon'/>
                         Transactions
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <BarChart className='sidebarIcon'/>
                         Reports
                     </li>
@@ -71,15 +71,15 @@ const Sidebar = () => {
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Notifications</h3>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <MailOutline className='sidebarIcon'/>
                         Mail
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <DynamicFeed className='sidebarIcon'/>
                         Feedback
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <ChatBubbleOutline className='sidebarIcon'/>
                         Messages
                     </li>
@@ -88,15 +88,15 @@ const Sidebar = () => {
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Staff</h3>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <WorkOutline className='sidebarIcon'/>
                         Manage
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <Timeline className='sidebarIcon'/>
                         Analytics
                     </li>
-                    <li className="sidebarListItem">
+                    <li className="sidebarListItem disabled">
                         <Report className='sidebarIcon'/>
                         Reports
                     </li>
