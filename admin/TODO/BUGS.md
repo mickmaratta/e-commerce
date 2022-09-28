@@ -1,0 +1,3 @@
+-turn sidebar menu into a component
+-Turn user list in widgetSm into a component
+-update dummyData

@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link:visited {
+    text-decoration: none;
+    color: inherit;
+}
