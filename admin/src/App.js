@@ -33,7 +33,7 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/login" element={<Home />}/>
+          <Route path="/login" element={<Login />}/>
           <Route path="/users" element={<UserList />}/>  
             <Route path="/users/:userId" element={<User />}/> 
           <Route path="/users/newUser" element={<NewUser />}/>

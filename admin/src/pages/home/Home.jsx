@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { userRequest } from '../../requestMethods';
 
 const Home = () => {
-  const [userStats, setUserStats] = useState([]);
+  const [userOrders, setUserOrders] = useState([]);
 
   const MONTHS = useMemo(
     () => [
@@ -29,31 +29,31 @@ const Home = () => {
     []
   );
 
-  useEffect(() => {
-    const getStats = async () => {
-      try {
-        const res = await userRequest.get("/users/stats");
-        res.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], "Active User": item.total },
-          ])
-        );
-      } catch {}
-    };
-    getStats();
-  }, [MONTHS]);
+  const getOrders = async () => {
+    try {
+      const res = await userRequest.get("/orders");
+      setUserOrders(res.data)
+    } catch {}
+  };
 
- console.log(userStats);
+  useEffect(() => {
+    getOrders()
+  }, [])
+
+  let data = [];
+  userOrders.map(order => {
+    const newOrder = {name: MONTHS[order.createdAt.split("-")[1] - 1], "Total Sales": order.amount};
+    return data.push(newOrder);
+  })
 
   return (
     <div className='home'>
         <FeaturedInfo />
         <Chart 
-        data={userStats}
-        title="User Analytics"
+        data={data}
+        title="Sales"
         grid
-        dataKey="Active User"
+        dataKey="Total Sales"
         />
         <div className="homeWidgets">
           <WidgetSm />

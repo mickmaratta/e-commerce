@@ -4,21 +4,26 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/apiCalls';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Login = () => {
-const {currentUser} = useSelector((state)=>state.user);
-const [username, setUsername] = useState("");
+  const {currentUser} = useSelector((state)=>state.user);
+  let isAdmin;
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(currentUser)
+    
     login(dispatch, { username, password });
   }
- 
-  currentUser && navigate("/", {replace: true});
+  useEffect(() => {
+    if (currentUser) {
+      currentUser.isAdmin && navigate("/", { replace: true });
+    }
+  }, [currentUser, navigate])
   
   return (
     <div className='login'>
