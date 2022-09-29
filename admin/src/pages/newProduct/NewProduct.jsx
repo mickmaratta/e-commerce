@@ -27,7 +27,7 @@ const NewProduct = () => {
     const storage = getStorage(app);
     const storageRef = ref(storage, fileName);
     
-    const uploadTask = uploadBytesResumable(storageRef, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, imgFile);
 
     // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
@@ -57,8 +57,7 @@ const NewProduct = () => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = {...inputs, img:downloadURL, categories: cat};
-          console.log(downloadURL)
-          //addProduct(product, dispatch)
+          addProduct(product, dispatch)
         });
       }
     );

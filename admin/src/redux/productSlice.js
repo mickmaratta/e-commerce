@@ -26,14 +26,14 @@ export const productSlice = createSlice({
         deleteProductSuccess: (state, action) => {
             state.isFetching = false;
             state.products.splice(
-                state.products.findIndex(item=>item._id === action.payload),1
+                state.products.findIndex(item=>item._id === action.payload),
             )
         },
         //UPDATE
         updateProductSuccess: (state, action) => {
             state.isFetching = false;
-            state.products[state.products.findIndex((item) => item._id === action.payload_id)
-            ] = action.payload.product
+            state.products[state.products.findIndex((item) => item._id === action.payload._id)
+            ] = action.payload
         },
         //ADD
         addProductSuccess: (state, action) => {
