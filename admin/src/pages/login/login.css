@@ -7,6 +7,10 @@
     flex-direction: column;
 }
 
+.loginTitle {
+    margin-bottom: 20px;
+}
+
 .login>input {
     padding: 10px;
     margin-bottom: 20px;

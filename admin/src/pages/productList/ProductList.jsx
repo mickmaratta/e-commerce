@@ -1,6 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React from 'react';
 import "./productList.css";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'

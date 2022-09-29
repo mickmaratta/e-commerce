@@ -31,8 +31,8 @@
 
 .topbarIconContainer {
     position: relative;
-    cursor: pointer;
     color: #555;
+    cursor: pointer;
 }
 
 .topIconBadge {

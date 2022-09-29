@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./userList.css";
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from '@mui/icons-material';
-import { userRows } from '../../dummyData';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { deleteClient, getClients } from '../../redux/apiCalls';
+import {format} from "timeago.js";
 
 const UserList = () => {
-  const [data, setData] = useState(userRows);
-  
+  const dispatch = useDispatch();
+  const clients = useSelector((state) => state.client.clients);
+
+  useEffect(() => {
+    getClients(dispatch)
+  }, [dispatch]);
+
   const handleDelete = (id) => {
-    setData(data.filter(item=>item.id !== id))
+    deleteClient(id, dispatch);
   };
 
   const columns = [
@@ -17,21 +25,23 @@ const UserList = () => {
     { field: 'user', headerName: 'User', width: 200, renderCell: (params) => {
       return (
         <div className='userListUser'>
-          <img src={params.row.avatar} alt="" className='userListImg'/>
-          {params.row.userName}
+          <img src={params.row.img || "https://media.defense.gov/2020/Feb/19/2002251686/700/465/0/200219-A-QY194-002.JPG"} alt="" className='userListImg'/>
+          {params.row.username}
         </div>
         )
     }},
     { field: 'email', headerName: 'Email', width: 200 },
-    { field: 'status', headerName: 'Status', width: 120 },
-    { field: 'transaction', headerName: 'Transaction Total', width: 160 },
+    { field: 'isAdmin', headerName: 'Admin', width: 120 },
+    { field: 'createdAt', headerName: 'User Created', width: 160, renderCell: (params) => {
+      return (<div>{format(params.row.createdAt)}</div>)
+    } },
     { field: 'action', headerName: 'Action', width: 150, sortable: false, renderCell: (params) => {
       return(
         <div className='userListActions'>
           <Link to={`/users/${params.row.id}`} >
             <button className="userListEdit">Edit</button>
           </Link>
-          <DeleteOutline className='userListDelete' onClick={() => handleDelete(params.row.id)}/>
+          <DeleteOutline className='userListDelete' onClick={() => handleDelete(params.row._id)}/>
         </div>
       )
     }},
@@ -40,7 +50,8 @@ const UserList = () => {
   return (
     <div className='userList'>
         <DataGrid
-        rows={data}
+        rows={clients}
+        getRowId={row=>row._id}
         columns={columns}
         pageSize={8}
         rowsPerPageOptions={[8]}

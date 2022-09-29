@@ -8,17 +8,15 @@ import { useEffect } from 'react';
 
 const Login = () => {
   const {currentUser} = useSelector((state)=>state.user);
-  let isAdmin;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    
+  const handleLogin = () => {
     login(dispatch, { username, password });
   }
+  
   useEffect(() => {
     if (currentUser) {
       currentUser.isAdmin && navigate("/", { replace: true });
@@ -27,6 +25,7 @@ const Login = () => {
   
   return (
     <div className='login'>
+      <h1 className='loginTitle'>ADMIN LOGIN</h1>
         <input 
           type="text" 
           placeholder='username' 

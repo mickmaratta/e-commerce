@@ -16,6 +16,7 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
+import Error from "./pages/error/Error";
 
 
 function App() {
@@ -25,13 +26,18 @@ function App() {
   return (
     <Router className="App">
       <Routes>
-      {!isAdmin && <Route path="/login" element={<Login />}/>}
+        {!isAdmin && <>
+          <Route path="/login" element={<Login />}/>
+          <Route path="*" element={<Error />} />
+        </>}
       </Routes>
+
       {isAdmin && <>
       <Topbar />
       <div className="container">
         <Sidebar />
         <Routes>
+          <Route path="*" element={<Error />} />
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/users" element={<UserList />}/>  
@@ -40,9 +46,11 @@ function App() {
           <Route path="/products" element={<ProductList />}/>
             <Route path="/products/:productId" element={<Product />}/>
           <Route path="/products/newProduct" element={<NewProduct />}/>
+          
         </Routes>
       </div>
       </>}
+
     </Router>
   );
 }

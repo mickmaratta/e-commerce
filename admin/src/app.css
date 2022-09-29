@@ -12,3 +12,11 @@
     text-decoration: none;
     color: inherit;
 }
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    background-color: inherit;
+}

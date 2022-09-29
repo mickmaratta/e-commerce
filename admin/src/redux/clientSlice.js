@@ -1,55 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const productSlice = createSlice({
-    name: "product",
+export const clientSlice = createSlice({
+    name: "client",
     initialState: {
-        products: [],
+        clients: [],
         isFetching: false,
         error: false
     },
     reducers: {
-        productStart: (state) => {
+        clientStart: (state) => {
             state.isFetching = true;
             state.error = false;
         },
-        productFailure: (state) => {
+        clientFailure: (state) => {
             state.isFetching = false;
             state.error = true;
         },
 
         //GET ALL
-        getProductSuccess: (state, action) => {
+        getClientSuccess: (state, action) => {
             state.isFetching = false;
-            state.products = action.payload;
+            state.clients = action.payload;
         },
         //DELETE
-        deleteProductSuccess: (state, action) => {
+        deleteClientSuccess: (state, action) => {
             state.isFetching = false;
-            state.products.splice(
-                state.products.findIndex(item=>item._id === action.payload),1
+            state.clients.splice(
+                state.clients.findIndex(item=>item._id === action.payload),1
             )
-        },
+        },/*
         //UPDATE
         updateProductSuccess: (state, action) => {
             state.isFetching = false;
-            state.products[state.products.findIndex((item) => item._id === action.payload._id)
+            state.products[state.clients.findIndex((item) => item._id === action.payload._id)
             ] = action.payload
         },
         //ADD
         addProductSuccess: (state, action) => {
             state.isFetching = false;
             state.products.push(action.payload);
-        },
+        },*/
     },
 });
 
 export const { 
-    productStart,
-    productFailure,
-    getProductSuccess, 
-    deleteProductSuccess, 
-    updateProductSuccess,
-    addProductSuccess
-} =productSlice.actions;
+    clientStart,
+    clientFailure,
+    getClientSuccess,
+    deleteClientSuccess
+} =clientSlice.actions;
 
-export default productSlice.reducer;
+export default clientSlice.reducer;

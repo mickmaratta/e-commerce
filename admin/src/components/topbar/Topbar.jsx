@@ -1,9 +1,18 @@
-import React from 'react';
 import "./topbar.css";
-import { NotificationsNone, Language, Settings } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { NotificationsNone, Logout } from '@mui/icons-material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/userSlice';
 
 const Topbar = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    navigate("/login", { replace: true })
+    dispatch(logout())
+  };
+
   return (
     <div className="topbar">
         <div className="topbarWrapper">
@@ -15,14 +24,11 @@ const Topbar = () => {
             <div className="topRight">
                 <div className="topbarIconContainer">
                     <NotificationsNone />
-                    <span className="topIconBadge">2</span>
+                    <span className="topIconBadge"></span>
                 </div>
-                <div className="topbarIconContainer">
-                    <Language />
-                    <span className="topIconBadge">2</span>
-                </div>
-                <div className="topbarIconContainer">
-                    <Settings />
+                <div className="topbarIconContainer" onClick={handleLogout}>
+                    <Logout />
+                    <span className="topIconBadge"></span>
                 </div>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" className="topAvatar" />
             </div>

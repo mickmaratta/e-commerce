@@ -1,4 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods";
+import { deleteClientSuccess, getClientSuccess } from "./clientSlice";
+import { clientFailure } from "./clientSlice";
+import { clientStart } from "./clientSlice";
 import { 
     addProductSuccess,
     deleteProductSuccess, 
@@ -65,6 +68,31 @@ export const addProduct = async (product, dispatch) => {
     try {
         const res = await userRequest.post(`/products/`, product)
         dispatch(addProductSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(productFailure());
+    }
+}
+
+//GET ALL CLIENTS
+export const getClients = async (dispatch) => {
+    dispatch(clientStart());
+    try {
+        const res = await userRequest.get("/users");
+        dispatch(getClientSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(clientFailure());
+    }
+}
+
+//DELETE CLIENT
+export const deleteClient = async (id, dispatch) => {
+    dispatch(productStart());
+    try {
+        //DELETE FROM DB
+        //const res = await userRequest.delete(`/products/${id}`)
+        dispatch(deleteClientSuccess(id));
     } catch (error) {
         console.log(error)
         dispatch(productFailure());

@@ -1,0 +1,15 @@
+.error {
+    flex: 4;
+    padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.errorButton {
+    padding: 10px;
+    width: 100px;
+    cursor: pointer;
+}
