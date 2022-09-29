@@ -42,10 +42,10 @@ function App() {
           <Route path="/login" element={<Login />}/>
           <Route path="/users" element={<UserList />}/>  
             <Route path="/users/:userId" element={<User />}/> 
-          <Route path="/users/newUser" element={<NewUser />}/>
+          <Route path="/newUser" element={<NewUser />}/>
           <Route path="/products" element={<ProductList />}/>
             <Route path="/products/:productId" element={<Product />}/>
-          <Route path="/products/newProduct" element={<NewProduct />}/>
+          <Route path="/newProduct" element={<NewProduct />}/>
           
         </Routes>
       </div>

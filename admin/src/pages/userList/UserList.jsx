@@ -26,19 +26,22 @@ const UserList = () => {
       return (
         <div className='userListUser'>
           <img src={params.row.img || "https://media.defense.gov/2020/Feb/19/2002251686/700/465/0/200219-A-QY194-002.JPG"} alt="" className='userListImg'/>
-          {params.row.username}
+          <div className="userListNames">
+            <span className='userListName'>{params.row.name}</span>
+            <span className='userListUsername'>@{params.row.username}</span>
+          </div>
         </div>
         )
     }},
     { field: 'email', headerName: 'Email', width: 200 },
     { field: 'isAdmin', headerName: 'Admin', width: 120 },
     { field: 'createdAt', headerName: 'User Created', width: 160, renderCell: (params) => {
-      return (<div>{format(params.row.createdAt)}</div>)
+      return (<div>{params.row.createdAt.split("T")[0]}</div>)
     } },
     { field: 'action', headerName: 'Action', width: 150, sortable: false, renderCell: (params) => {
       return(
         <div className='userListActions'>
-          <Link to={`/users/${params.row.id}`} >
+          <Link to={`/users/${params.row._id}`} >
             <button className="userListEdit">Edit</button>
           </Link>
           <DeleteOutline className='userListDelete' onClick={() => handleDelete(params.row._id)}/>

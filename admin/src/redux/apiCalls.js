@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods";
-import { deleteClientSuccess, getClientSuccess } from "./clientSlice";
+import { addClientSuccess, deleteClientSuccess, getClientSuccess, updateClientSuccess } from "./clientSlice";
 import { clientFailure } from "./clientSlice";
 import { clientStart } from "./clientSlice";
 import { 
@@ -88,13 +88,38 @@ export const getClients = async (dispatch) => {
 
 //DELETE CLIENT
 export const deleteClient = async (id, dispatch) => {
-    dispatch(productStart());
+    dispatch(clientStart());
     try {
         //DELETE FROM DB
         //const res = await userRequest.delete(`/products/${id}`)
         dispatch(deleteClientSuccess(id));
     } catch (error) {
         console.log(error)
-        dispatch(productFailure());
+        dispatch(clientFailure());
+    }
+}
+
+//UPDATE CLIENT
+export const updateClient = async (client, dispatch) => {
+    dispatch(clientStart());
+    try {
+        //UPDATE DB
+        const res = await userRequest.put(`/users/${client._id}`, client);
+        dispatch(updateClientSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(clientFailure());
+    }
+}
+
+//ADD CLIENT
+export const addClient = async (client, dispatch) => {
+    dispatch(clientStart());
+    try {
+        const res = await userRequest.post(`/auth/register`, client)
+        dispatch(addClientSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(clientFailure());
     }
 }

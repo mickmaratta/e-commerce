@@ -1,10 +1,11 @@
 import "./topbar.css";
 import { NotificationsNone, Logout } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/userSlice';
 
 const Topbar = () => {
+  const adminId = useSelector(state=>state.user.currentUser._id)
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -30,7 +31,9 @@ const Topbar = () => {
                     <Logout />
                     <span className="topIconBadge"></span>
                 </div>
+                <Link to={`/users/${adminId}`}>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="" className="topAvatar" />
+                </Link>
             </div>
         </div>
     </div>

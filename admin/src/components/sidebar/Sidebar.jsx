@@ -14,6 +14,7 @@ import {
     WorkOutline,
     Report,
     AddCircleOutline,
+    PersonAddAlt1,
 } from "@mui/icons-material";
 
 import { Link, useLocation } from 'react-router-dom';
@@ -53,6 +54,12 @@ const Sidebar = () => {
                             Users
                         </li>
                     </Link>
+                    <Link className="link" to="/newUser">
+                        <li className={"sidebarListItem " + (loc==="newUser" && "active")}>
+                            <PersonAddAlt1 className='sidebarIcon'/>
+                            Create User
+                        </li>
+                    </Link>
                     <Link className="link" to="/products">  
                         <li className={"sidebarListItem " + (loc==="products" && "active")}>
                             <Storefront className='sidebarIcon'/>
@@ -60,15 +67,11 @@ const Sidebar = () => {
                         </li>
                     </Link>
                     <Link className='link' to="/newProduct">
-                        <li className="sidebarListItem">
+                        <li className={"sidebarListItem " + (loc==="newProduct" && "active")}>
                             <AddCircleOutline className='sidebarIcon'/>
                             Add Product
                         </li>
                     </Link>
-                    <li className="sidebarListItem disabled">
-                        <BarChart className='sidebarIcon'/>
-                        Reports
-                    </li>
                 </ul>
             </div>
             <div className="sidebarMenu">

@@ -75,7 +75,6 @@ const Product = () => {
     e.preventDefault();
     if(typeof imgFile === "string") {
       const updatedProduct = {...inputs, _id: productId, img:imgFile, categories: cat};
-      console.log(updatedProduct);
       updateProduct(updatedProduct, dispatch);
     } else {
     const fileName = new Date().getTime() + imgFile;
@@ -170,11 +169,11 @@ const Product = () => {
             </div>
             <div className="productFormRight">
                 <div className="productUpload">
-                    <img src={product.img} alt="" className='productUploadImg' onChange={e=>setImgFile(e.target.files[0])}/> 
+                    <img src={product.img} alt="" className='productUploadImg' /> 
                     <label htmlFor="file">
                         <Publish className='productFormIcon' />
                     </label>
-                    <input type="file" id="file" style={{display: "none" }}/>
+                    <input type="file" id="file" style={{display: "none" }} onChange={e=>setImgFile(e.target.files[0])}/>
                 </div>
                 <button className="productButton" onClick={handleClick}>Update</button>
             </div>

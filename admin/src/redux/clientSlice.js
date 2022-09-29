@@ -28,18 +28,18 @@ export const clientSlice = createSlice({
             state.clients.splice(
                 state.clients.findIndex(item=>item._id === action.payload),1
             )
-        },/*
+        },
         //UPDATE
-        updateProductSuccess: (state, action) => {
+        updateClientSuccess: (state, action) => {
             state.isFetching = false;
-            state.products[state.clients.findIndex((item) => item._id === action.payload._id)
+            state.clients[state.clients.findIndex((item) => item._id === action.payload._id)
             ] = action.payload
         },
         //ADD
-        addProductSuccess: (state, action) => {
+        addClientSuccess: (state, action) => {
             state.isFetching = false;
-            state.products.push(action.payload);
-        },*/
+            state.clients.push(action.payload);
+        },
     },
 });
 
@@ -47,7 +47,9 @@ export const {
     clientStart,
     clientFailure,
     getClientSuccess,
-    deleteClientSuccess
+    deleteClientSuccess,
+    updateClientSuccess,
+    addClientSuccess
 } =clientSlice.actions;
 
 export default clientSlice.reducer;
