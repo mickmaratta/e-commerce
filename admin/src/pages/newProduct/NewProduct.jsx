@@ -4,12 +4,14 @@ import "./newProduct.css";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from "../../firebase";
 import { addProduct } from '../../redux/apiCalls';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NewProduct = () => {
   const [inputs, setInputs] = useState({});
   const [imgFile, setImgFile] = useState(null);
   const [cat, setCat] = useState([]);
+  const {error} = useSelector((state)=> state.product)
+  const [success, setSuccess] = useState(false)
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -57,7 +59,8 @@ const NewProduct = () => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = {...inputs, img:downloadURL, categories: cat};
-          addProduct(product, dispatch)
+          addProduct(product, dispatch);
+          setSuccess(true);
         });
       }
     );
@@ -68,16 +71,16 @@ const NewProduct = () => {
         <h1 className="newProductTitle">New Product</h1>
         <form className="addProductForm">
             <div className="addProductFormLeft">
-                <label>Product Title</label>
-                <input type="text" placeholder="Title" name="title" onChange={handleChange}/>
-                <label>Product Description</label>
-                <input type="text" placeholder="Description" name="desc" onChange={handleChange}/>
-                <label>Price</label>
-                <input type="number" placeholder="Price" name="price" onChange={handleChange}/>
-                <label>Categories</label>
-                <input type="text" placeholder="jeans, skirts" onChange={handleCat}/>
-                <label>In Stock</label>
-                <select name="inStock" id="active" onChange={handleChange}>
+                <label>Product Title*</label>
+                <input required type="text" placeholder="Title" name="title" onChange={handleChange}/>
+                <label>Product Description*</label>
+                <input required type="text" placeholder="Description" name="desc" onChange={handleChange}/>
+                <label>Price*</label>
+                <input required type="number" placeholder="Price" name="price" onChange={handleChange}/>
+                <label>Categories*</label>
+                <input required type="text" placeholder="jeans, skirts" onChange={handleCat}/>
+                <label>In Stock*</label>
+                <select required name="inStock" id="active" onChange={handleChange}>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </select>
@@ -89,6 +92,8 @@ const NewProduct = () => {
                     </label>
                     <input type="file" id="file" onChange={e=>setImgFile(e.target.files[0])}/>
                 </div>
+                {error && <span className="error" >Please fill in all fields marked *</span>}
+                {(success && !error) && <span className="success">New product created</span>}
                 <button className="addProductButton" onClick={handleClick}>Create</button>
             </div>
         </form>

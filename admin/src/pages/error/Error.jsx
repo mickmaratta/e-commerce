@@ -5,7 +5,7 @@ import "./error.css";
 const Error = () => {
 
   return (
-    <div className='error'>
+    <div className='errorPage'>
         <h1 className="errorTitle">This page does not exist</h1>
         <Link to="/login">
             <button className="errorButton">Go Back</button>

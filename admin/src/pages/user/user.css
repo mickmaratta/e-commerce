@@ -145,6 +145,13 @@
     cursor: pointer !important;
 }
 
+.userUpdateButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
 .userUpdateButton {
     border: none;
     border-radius: 5px;
@@ -153,4 +160,5 @@
     background-color: darkblue;
     color: white;
     font-weight: 600;
+    width: 100%;
 }

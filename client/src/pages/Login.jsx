@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Navbar from '../components/Navbar';
 import { login } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 
 const Container = styled.div`
+`;
+
+const InnerContainer = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 93vh;
     background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -88,17 +92,20 @@ const Login = () => {
   
   return (
     <Container>
-        <Wrapper>
-            <Title>LOG IN</Title>
-            <Form>
-                <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}/>
-                <Input placeholder="Password" type="password" onChange={(e)=>setPassword(e.target.value)}/>
-                <Button onClick={handleLogin} disabled={isFetching}>LOGIN</Button>
-                {error && <Error>Something went wrong...</Error> }
-                <Link>Forgot Password?</Link>
-                <Link>Create a New Account</Link>
-            </Form>
-        </Wrapper>
+      <Navbar />
+      <InnerContainer>
+          <Wrapper>
+              <Title>LOG IN</Title>
+              <Form>
+                  <Input placeholder="Username" onChange={(e)=>setUsername(e.target.value)}/>
+                  <Input placeholder="Password" type="password" onChange={(e)=>setPassword(e.target.value)}/>
+                  <Button onClick={handleLogin} disabled={isFetching}>LOGIN</Button>
+                  {error && <Error>Something went wrong...</Error> }
+                  <Link>Forgot Password?</Link>
+                  <Link>Create a New Account</Link>
+              </Form>
+          </Wrapper>
+      </InnerContainer>
     </Container>
   )
 }

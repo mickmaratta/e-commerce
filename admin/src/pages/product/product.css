@@ -131,9 +131,11 @@
 .productUpload {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.productButton {
+.productUpdateButton {
     border: none;
     padding: 5px;
     border-radius: 5px;
@@ -141,19 +143,16 @@
     color: white;
     font-weight: 600;
     cursor: pointer;
+    width: 100%;
 }
 
-.newProductButton {
-    margin-top: 10px;
-    border: none;
-    padding: 7px 10px;
-    border-radius: 10px;
-    background-color: darkblue;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    width: 20%;
+.productUpdateButtonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
+
 
 .productUploadImg {
     width: 100px;

@@ -87,7 +87,7 @@ const Footer = () => {
   return (
     <Container>
         <Left>
-            <Logo>LAMA.</Logo>
+            <Logo>CARLOS.</Logo>
             <Desc>
                 There are many variations of passages of Lorem Ipsum available, but
                 the majority have suffered alteration in some form, by injected
@@ -124,7 +124,7 @@ const Footer = () => {
             <Contact>
                 <ContactItem>
                     <PlaceIcon />
-                    <Desc>622 Dixie Place, Toronto, ON</Desc>
+                    <Desc>622 Carlos Lane, Toronto, ON</Desc>
                 </ContactItem>
                 <ContactItem>
                     <LocalPhoneIcon />
@@ -132,7 +132,7 @@ const Footer = () => {
                 </ContactItem>
                 <ContactItem>
                     <EmailIcon />
-                    <Desc>lamastore@lama.com</Desc>
+                    <Desc>carlosstore@carlos.com</Desc>
                 </ContactItem>
             </Contact>
             <Payment src={require(`../resources/images/payment.png`)} />

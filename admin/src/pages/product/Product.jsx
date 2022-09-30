@@ -20,6 +20,7 @@ const Product = () => {
   const [inputs, setInputs] = useState({title: product.title, desc: product.desc, price: product.price, inStock: product.inStock});
   const [imgFile, setImgFile] = useState(product.img);
   const [cat, setCat] = useState(product.categories);
+  const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -73,6 +74,7 @@ const Product = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    setIsUpdated(true);
     if(typeof imgFile === "string") {
       const updatedProduct = {...inputs, _id: productId, img:imgFile, categories: cat};
       updateProduct(updatedProduct, dispatch);
@@ -170,12 +172,12 @@ const Product = () => {
             <div className="productFormRight">
                 <div className="productUpload">
                     <img src={product.img} alt="" className='productUploadImg' /> 
-                    <label htmlFor="file">
-                        <Publish className='productFormIcon' />
-                    </label>
-                    <input type="file" id="file" style={{display: "none" }} onChange={e=>setImgFile(e.target.files[0])}/>
+                    <input type="file" id="file"  onChange={e=>setImgFile(e.target.files[0])}/>
                 </div>
-                <button className="productButton" onClick={handleClick}>Update</button>
+                <div className='productUpdateButtonContainer'>
+                    {isUpdated && <span className='success'>User updated</span>}
+                    <button className="productUpdateButton" onClick={handleClick}>Update</button>
+                </div>
             </div>
         </form>
         </div>

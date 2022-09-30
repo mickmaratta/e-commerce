@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import "./newUser.css";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { addClient } from '../../redux/apiCalls';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import app from '../../firebase';
 
 const NewUser = () => {
   const [imgFile, setImgFile] = useState(null);
   const [inputs, setInputs] = useState();
+  const {error} = useSelector((state)=> state.client)
+  const [success, setSuccess] = useState(false)
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -24,6 +26,7 @@ const NewUser = () => {
         ...inputs, 
       };
       addClient(client, dispatch);
+      setSuccess(true);
     } else {
     const fileName = new Date().getTime() + imgFile;
     const storage = getStorage(app);
@@ -59,7 +62,8 @@ const NewUser = () => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const client = {...inputs, img:downloadURL};
-          addClient(client, dispatch)
+          addClient(client, dispatch);
+          setSuccess(true);
         });
       }
     )};
@@ -70,20 +74,20 @@ const NewUser = () => {
         <h1 className="newUserTitle">New User</h1>
         <form className="newUserForm">
             <div className="newUserItem">
-                <label>Username</label>
-                <input type="text" placeholder='john123' name="username" onChange={handleChange}/>
+                <label>Username*</label>
+                <input required type="text" placeholder='john123' name="username" onChange={handleChange}/>
             </div>
             <div className="newUserItem">
-                <label>Full Name</label>
-                <input type="text" placeholder='John Smith' name="name" onChange={handleChange}/>
+                <label>Full Name*</label>
+                <input required type="text" placeholder='John Smith' name="name" onChange={handleChange}/>
             </div>
             <div className="newUserItem">
-                <label>Email</label>
-                <input type="email" placeholder='johnsmith@gmail.com' name="email" onChange={handleChange} />
+                <label>Email*</label>
+                <input required type="email" placeholder='johnsmith@gmail.com' name="email" onChange={handleChange} />
             </div>
             <div className="newUserItem">
-                <label>Password</label>
-                <input type="password" placeholder='password' name="password" onChange={handleChange}/>
+                <label>Password*</label>
+                <input required type="password" placeholder='password' name="password" onChange={handleChange}/>
             </div>
             <div className="newUserItem">
                 <label>Admin</label>
@@ -98,10 +102,12 @@ const NewUser = () => {
                 </label>
                 <input type="file" id="file" onChange={e=>setImgFile(e.target.files[0])}/>
             </div>
-            <button className="newUserButton" onClick={handleClick}>Create</button>    
+              {error && <span className="error" >Please fill in all fields marked *</span>}
+              {(success && !error) && <span className="success">New user created</span>}
+              <button className="newUserButton" onClick={handleClick}>Create</button>  
         </form>
     </div>
   )
 }
 
-export default NewUser
+export default NewUser;

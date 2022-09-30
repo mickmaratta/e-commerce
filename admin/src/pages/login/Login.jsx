@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Login = () => {
-  const {currentUser} = useSelector((state)=>state.user);
+  const {currentUser, isFetching, error} = useSelector((state)=>state.user);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
@@ -36,7 +36,8 @@ const Login = () => {
           placeholder='password' 
           onChange={e=>setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin} disabled={isFetching}>Login</button>
+        {error && <span className='loginError'>Wrong credentials</span> }
     </div>
   )
 }

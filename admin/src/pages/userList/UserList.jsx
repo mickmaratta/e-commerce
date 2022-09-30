@@ -56,8 +56,8 @@ const UserList = () => {
         rows={clients}
         getRowId={row=>row._id}
         columns={columns}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
+        pageSize={12}
+        rowsPerPageOptions={[12]}
         checkboxSelection
         disableSelectionOnClick
       />

@@ -20,3 +20,17 @@
 .disabled:hover {
     background-color: inherit;
 }
+
+.success {
+    color: green;
+    font-size: 14px;
+    font-style: italic;
+    padding: 10px;
+}
+
+.error {
+    color: red;
+    font-style: italic;
+    font-size: 14px;
+    padding: 10px;
+}

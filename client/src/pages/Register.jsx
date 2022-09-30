@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
+import Navbar from '../components/Navbar'
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../redux/apiCalls';
 
 const Container = styled.div`
+`;
+
+const InnerContainer = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 93vh;
     background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -48,30 +54,51 @@ const Agreement = styled.span`
     margin: 20px 0;
 `;
 
+const Error = styled.span`
+    color: red;
+`
 const Button = styled.button`
     border: none;
     width: 40%;
     background-color: teal;
     padding: 15px 20px;
     color: white;
+    cursor: pointer;
 `;
 
 const Register = () => {
+    const [inputs, setInputs] = useState();
+    const {error} = useSelector(state=>state.user)
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setInputs((prev) => {
+            return {...prev, [e.target.name]: e.target.value}
+        })
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        addUser(inputs, dispatch)
+    }
+
   return (
     <Container>
-        <Wrapper>
-            <Title>CREATE AN ACCOUNT</Title>
-            <Form>
-                <Input placeholder="Name" />
-                <Input placeholder="Last Name" />
-                <Input placeholder="Username" />
-                <Input placeholder="Email" />
-                <Input placeholder="Password" />
-                <Input placeholder="Confirm Password" />
-                <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b></Agreement>
-                <Button>CREATE ACCOUNT</Button>
-            </Form>
-        </Wrapper>
+        <Navbar />
+        <InnerContainer>
+            <Wrapper>
+                <Title>CREATE AN ACCOUNT</Title>
+                <Form>
+                    <Input placeholder="Full Name" name="name" onChange={handleChange}/>
+                    <Input placeholder="Username" name="username" onChange={handleChange}/>
+                    <Input placeholder="Email" name="email" onChange={handleChange}/>
+                    <Input placeholder="Password" name="password" onChange={handleChange}/>
+                    <Agreement>By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b></Agreement>
+                    {error && <Error>Something went wrong...</Error>}
+                    <Button onClick={handleClick}>CREATE ACCOUNT</Button>
+                </Form>
+            </Wrapper>
+        </InnerContainer>
     </Container>
   )
 }

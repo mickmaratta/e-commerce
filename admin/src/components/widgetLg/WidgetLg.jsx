@@ -28,7 +28,7 @@ const WidgetLg = () => {
       <table className="widgetLgTable">
         <tbody>
           <tr className="widgetLgTr">
-            <th className="widgetLgTh">Customer ID</th>
+            <th className="widgetLgTh">Order ID</th>
             <th className="widgetLgTh">Date</th>
             <th className="widgetLgTh">Amount</th>
             <th className="widgetLgTh">Status</th>
@@ -36,7 +36,7 @@ const WidgetLg = () => {
           {orders.map(order => (
             <tr className="WidgetLgTr" key={order.createdAt}>
               <td className="widgetLgUser">
-                <span className="widgetLgName">{order.userId}</span>
+                <span className="widgetLgName">{order._id}</span>
               </td>
               <td className="widgetLgDate">{format(order.createdAt)}</td>
               <td className="widgetLgAmount">${order.amount}</td>

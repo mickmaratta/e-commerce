@@ -1,16 +1,16 @@
-import { ShoppingCartOutlined } from '@mui/icons-material';
+import { Logout, ShoppingCartOutlined } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Badge } from '@mui/material';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {mobile} from "../responsive";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/userSlice';
 
 
 const Container = styled.div`
-    height: 60px;
-    ${mobile({ height: "50px" })}
+    height: 7vh;
 `
 
 const Wrapper = styled.div`
@@ -86,29 +86,34 @@ const StyledLink = styled(Link)`
 
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity);
-  
+  const user = useSelector(state=>state.user.currentUser);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <Container>
         <Wrapper>
             <Left>
                 <Language>EN</Language>
-                <SearchContainer>
-                    <Input placeholder="search" />
-                    <SearchIcon style={{color: "gray", fontSize: "16px"}}/>
-                </SearchContainer>
+                <MenuItem>{`Hello ${user ? user.name : "guest"}`}</MenuItem>
             </Left>
             <Center>
                 <StyledLink to="/">
-                    <Logo>LAMA.</Logo>
+                    <Logo>CARLOS.</Logo>
                 </StyledLink>
             </Center>
             <Right>
-                <StyledLink to="/register">
+                {!user && <StyledLink to="/register">
                     <MenuItem>REGISTER</MenuItem>
-                </StyledLink>
-                <StyledLink to="/login">
+                </StyledLink>}
+                {!user && <StyledLink to="/login">
                     <MenuItem>SIGN IN</MenuItem>
-                </StyledLink> 
+                </StyledLink>}
+                {user && <MenuItem>
+                    <Logout onClick={handleLogout}/>
+                </MenuItem>}
                 <StyledLink to="/cart">
                     <MenuItem>
                         <Badge badgeContent={quantity} color="secondary">

@@ -5,7 +5,7 @@ export const clientSlice = createSlice({
     initialState: {
         clients: [],
         isFetching: false,
-        error: false
+        error: false,
     },
     reducers: {
         clientStart: (state) => {

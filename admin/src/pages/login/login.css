@@ -21,3 +21,8 @@
     width: 100px;
     cursor: pointer;
 }
+
+.loginError {
+    font-size: 12px;
+    color: red;
+}

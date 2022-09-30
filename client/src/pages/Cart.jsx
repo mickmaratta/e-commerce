@@ -72,6 +72,7 @@ const Product = styled.div`
 const ProductDetail = styled.div`
     flex: 2;
     display: flex;
+    ${mobile({ flexDirection: "column", alignItems: "center" })}
 `;
 
 const Image = styled.img`
@@ -195,7 +196,6 @@ const Cart = () => {
                     <TopText>Shopping Bag({quantity})</TopText>
                     <TopText>Your Wishlist(0)</TopText>
                 </TopTexts>
-                <TopButton type="filled">CHECKOUT NOW</TopButton>
             </Top>
             <Bottom>
                 <Info>

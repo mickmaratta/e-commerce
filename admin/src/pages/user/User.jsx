@@ -13,9 +13,13 @@ const User = () => {
   const client = useSelector((state) => 
     state.client.clients.find(client => client._id === clientId)
   );
-
-  const [inputs, setInputs] = useState({name: client.name, username: client.username, email: client.email, isAdmin: client.isAdmin});
+  const [inputs, setInputs] = useState({
+    name: client.name, 
+    username: client.username, 
+    email: client.email, 
+    isAdmin: client.isAdmin});
   const [imgFile, setImgFile] = useState((client.img || null));
+  const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useDispatch()
 
   const handleChange = (e) => {
@@ -26,6 +30,7 @@ const User = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    setIsUpdated(true);
     if(!imgFile || (typeof imgFile === "string")) {
       const updatedClient = {
         ...inputs, 
@@ -78,7 +83,7 @@ const User = () => {
     <div className='user'>
         <div className="userTitleContainer">
             <h1 className='userTitle'>Edit User</h1>
-            <Link to="/users/newUser">
+            <Link to="/newUser">
                 <button className="userAddButton">Create</button>
             </Link>
         </div>
@@ -159,7 +164,10 @@ const User = () => {
                             <img src={client.img || "https://media.defense.gov/2020/Feb/19/2002251686/700/465/0/200219-A-QY194-002.JPG"} alt="" className="userUpdateImg"  />
                             <input type="file" id="file" onChange={e=>setImgFile(e.target.files[0])}/>
                         </div>
-                        <button className="userUpdateButton" onClick={handleClick}>Update</button>
+                        <div className='userUpdateButtonContainer'>
+                          {isUpdated && <span className='success'>User updated</span>}
+                          <button className="userUpdateButton" onClick={handleClick}>Update</button>
+                        </div>
                     </div>
                 </form>
             </div>
