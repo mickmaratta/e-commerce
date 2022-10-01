@@ -16,6 +16,7 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  height: 75vh;
   ${mobile({ padding: "10px", flexDirection:"column" })}
 `;
 
@@ -26,7 +27,7 @@ const ImgContainer = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   ${mobile({ height: "40vh" })}
 `;
 
