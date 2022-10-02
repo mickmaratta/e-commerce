@@ -97,7 +97,7 @@ const Navbar = () => {
         <Wrapper>
             <Left>
                 <Language>EN</Language>
-                <MenuItem>{`Hello ${user ? user.name : "guest"}`}</MenuItem>
+                <MenuItem>{`Hello ${user ? user.name.split(" ")[0] : "guest"}`}</MenuItem>
             </Left>
             <Center>
                 <StyledLink to="/">

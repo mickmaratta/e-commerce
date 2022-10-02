@@ -15,6 +15,7 @@ const NewProduct = () => {
   const [inputs, setInputs] = useState({});
   const [imgFile, setImgFile] = useState(null);
   const [cat, setCat] = useState([]);
+  const [size, setSize] = useState([]);
   const [color, setColor] = useState([]);
   const { error } = useSelector((state) => state.product);
   const [success, setSuccess] = useState(false);
@@ -34,6 +35,15 @@ const NewProduct = () => {
       setCat(cat.filter(x=>x!==e.target.name))
     } else {
     setCat((prev) => {
+      return [...prev, e.target.name]
+    })}
+  }
+
+  const handleSize = (e) => {
+    if(size.includes(e.target.name)) {
+      setSize(cat.filter(x=>x!==e.target.name))
+    } else {
+    setSize((prev) => {
       return [...prev, e.target.name]
     })}
   }
@@ -80,6 +90,7 @@ const NewProduct = () => {
             img: downloadURL,
             categories: cat,
             color: color,
+            size: size,
           };
           addProduct(product, dispatch);
           setSuccess(true);
@@ -139,8 +150,8 @@ const NewProduct = () => {
               <label for="men">Men</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="checkbox" id="shirt" name="Shirt" onClick={handleCat}/>
-              <label for="shirt">Shirt</label>
+              <input className="addProductRadioInput" type="checkbox" id="shirts" name="shirts" onClick={handleCat}/>
+              <label for="shirts">Shirts</label>
             </div>
             <div>
               <input className="addProductRadioInput" type="checkbox" id="pants" name="pants" onClick={handleCat}/>
@@ -151,32 +162,36 @@ const NewProduct = () => {
               <label for="jackets">Jackets</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="checkbox" id="accesory" name="accesory" onClick={handleCat}/>
-              <label for="accesory">Accesory</label>
+              <input className="addProductRadioInput" type="checkbox" id="accessories" name="accessories" onClick={handleCat}/>
+              <label for="accessories">Accesories</label>
             </div>
           </div>
 
           <label>Size*</label>
           <div className="addProductFormCategory">
             <div>
-              <input className="addProductRadioInput" type="radio" id="xs" name="size" value="xs" onClick={handleChange}/>
+              <input className="addProductRadioInput" type="checkbox" id="xs" name="xs"  onClick={handleSize}/>
               <label for="xs">XS</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="radio" id="s" name="size" value="s" onClick={handleChange}/>
+              <input className="addProductRadioInput" type="checkbox" id="s" name="s" onClick={handleSize}/>
               <label for="s">S</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="radio" id="m" name="size" value="m" onClick={handleChange}/>
+              <input className="addProductRadioInput" type="checkbox" id="m" name="m" onClick={handleSize}/>
               <label for="m">M</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="radio" id="l" name="size" value="l" onClick={handleChange}/>
+              <input className="addProductRadioInput" type="checkbox" id="l" name="l" onClick={handleSize}/>
               <label for="l">L</label>
             </div>
             <div>
-              <input className="addProductRadioInput" type="radio" id="XL" name="size" value="xl" onClick={handleChange}/>
+              <input className="addProductRadioInput" type="checkbox" id="XL" name="xl"  onClick={handleSize}/>
               <label for="XL">XL</label>
+            </div>
+            <div>
+              <input className="addProductRadioInput" type="checkbox" id="oneSize" name="oneSize"  onClick={handleSize}/>
+              <label for="oneSize">One Size</label>
             </div>
           </div>
           <label>In Stock*</label>
