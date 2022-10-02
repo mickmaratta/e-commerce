@@ -1,5 +1,4 @@
 import { Logout, ShoppingCartOutlined } from '@mui/icons-material';
-import SearchIcon from '@mui/icons-material/Search';
 import { Badge } from '@mui/material';
 import React from 'react'
 import { Link } from 'react-router-dom';

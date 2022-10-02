@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useLocation,
 } from "react-router-dom";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
@@ -10,10 +11,20 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Success from "./pages/Success";
+import { useLayoutEffect } from "react";
 
 function App() {
+  const Wrapper = ({children}) => {
+    const location = useLocation();
+    useLayoutEffect(() => {
+      document.documentElement.scrollTo(0, 0);
+    }, [location.pathname]);
+    return children
+  } 
+
   return (
     <Router>
+      <Wrapper>
       <Routes>
           <Route path="/" element={<Home />} />
             <Route path="products" element={<ProductList />} />
@@ -24,6 +35,7 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="success" element={<Success />} />
           </Routes>
+          </Wrapper>
     </Router>
     
   );
