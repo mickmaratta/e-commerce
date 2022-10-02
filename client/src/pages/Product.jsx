@@ -142,7 +142,6 @@ const Product = () => {
         setProduct(res.data);
         res.data.color && setColor(res.data.color[0]);
         res.data.size && setSize(res.data.size[0]);
-        console.log(res.data);
       } catch {}
     };
     getProduct();
