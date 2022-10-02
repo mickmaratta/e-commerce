@@ -1,15 +1,16 @@
-import { Add, Remove } from '@mui/icons-material';
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components'
-import Announcement from '../components/Announcement';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
-import Newsletter from '../components/Newsletter';
-import { addProduct } from '../redux/cartSlice';
-import { publicRequest } from '../requestMethods';
-import { mobile } from '../responsive';
+import { Add, Favorite, FavoriteBorder, FavoriteOutlined, Remove } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import Announcement from "../components/Announcement";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import { addProduct } from "../redux/cartSlice";
+import { addFavorite } from "../redux/wishlistSlice";
+import { publicRequest } from "../requestMethods";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
   padding: 50px;
   display: flex;
   height: 75vh;
-  ${mobile({ padding: "10px", flexDirection:"column" })}
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -74,7 +75,7 @@ const FilterColor = styled.div`
   border-radius: 50%;
   background-color: ${(props) => props.color};
   border: 1px solid black;
-  transform: scale(${(props)=>props.enlarge});
+  transform: scale(${(props) => props.enlarge});
   transition: 0.3s ease-in-out;
   margin: 0px 5px;
   cursor: pointer;
@@ -112,20 +113,22 @@ const Amount = styled.span`
   margin: 0px 5px;
 `;
 
+
 const Button = styled.button`
   padding: 15px;
   border: 2px solid teal;
   background-color: white;
   cursor: pointer;
   font-weight: 500;
-  &:hover{
-      background-color: #f8f4f4;
+  &:hover {
+    background-color: #f8f4f4;
   }
 `;
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  const wishlistProducts = useSelector(state=>state.wishlist.products)
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
@@ -137,25 +140,33 @@ const Product = () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
         setProduct(res.data);
-        res.data.color && setColor(res.data.color[0])
-        res.data.size && setSize(res.data.size[0])
-        console.log(res.data)
+        res.data.color && setColor(res.data.color[0]);
+        res.data.size && setSize(res.data.size[0]);
+        console.log(res.data);
       } catch {}
     };
     getProduct();
-  }, [id]); 
+  }, [id]);
 
-  const handleQuantity = val => {
-    if(val === "dec" && quantity >= 2) {
-      setQuantity(quantity-1)
-    } else if(val === "inc") {
-      setQuantity(quantity+1)
+  const handleQuantity = (val) => {
+    if (val === "dec" && quantity >= 2) {
+      setQuantity(quantity - 1);
+    } else if (val === "inc") {
+      setQuantity(quantity + 1);
     }
   };
 
   const handleClick = () => {
     //Update cart
-    dispatch(addProduct({...product, quantity, color, size }));
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
+
+  const handleFavorite = () => {
+    if (wishlistProducts.find((item) => item._id === product._id )) {
+      return;
+    } else {
+      dispatch(addFavorite(product));
+    }
   }
 
   return (
@@ -173,9 +184,14 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-                {product.color?.map((itemColor) => (
-                  <FilterColor onClick={() => setColor(itemColor)} color={itemColor} key={itemColor} enlarge={color===itemColor?1.2:1} />
-                ))}
+              {product.color?.map((itemColor) => (
+                <FilterColor
+                  onClick={() => setColor(itemColor)}
+                  color={itemColor}
+                  key={itemColor}
+                  enlarge={color === itemColor ? 1.2 : 1}
+                />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
@@ -188,11 +204,12 @@ const Product = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")}/>
+              <Remove onClick={() => handleQuantity("dec")} />
               <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")}/>
+              <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+              <Button onClick={handleClick}>ADD TO CART</Button>
+              <FavoriteBorder sx={{ fontSize: "32px", cursor: "pointer", color: "darkred" }} onClick={handleFavorite}/>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
@@ -203,4 +220,3 @@ const Product = () => {
 };
 
 export default Product;
-

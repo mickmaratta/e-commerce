@@ -4,6 +4,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import React from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite } from "../redux/wishlistSlice";
 
 const Info = styled.div`
   opacity: 0;
@@ -22,25 +24,25 @@ const Info = styled.div`
 `;
 
 const InfoTop = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const InfoBottom = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
 const InfoDesc = styled.span`
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 5px;
-`
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 5px;
+`;
 const Container = styled.div`
   flex: 1;
   margin: 20px;
@@ -87,10 +89,20 @@ const Icon = styled.div`
     background-color: #e9f5f5;
     transform: scale(1.1);
   }
-
 `;
 
 const Product = ({ item }) => {
+  const dispatch = useDispatch();
+  const wishlistProducts = useSelector((state) => state.wishlist.products);
+
+  const handleClick = () => {
+    if (wishlistProducts.find((product) => product._id === item._id)) {
+      return;
+    } else {
+      dispatch(addFavorite(item));
+    }
+  };
+  
   return (
     <Container>
       <Circle />
@@ -103,12 +115,12 @@ const Product = ({ item }) => {
             </Link>
           </Icon>
           <Icon>
-            <FavoriteBorderIcon sx={{ color: "black" }}/>
+            <FavoriteBorderIcon sx={{ color: "black" }} onClick={handleClick} />
           </Icon>
         </InfoTop>
         <InfoBottom>
-            <InfoDesc>{item.title}</InfoDesc>
-            <InfoDesc>${item.price}</InfoDesc>
+          <InfoDesc>{item.title}</InfoDesc>
+          <InfoDesc>${item.price}</InfoDesc>
         </InfoBottom>
       </Info>
     </Container>

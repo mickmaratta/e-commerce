@@ -1,4 +1,4 @@
-import { Logout, ShoppingCartOutlined } from '@mui/icons-material';
+import { FavoriteBorder, Logout, ShoppingCartOutlined } from '@mui/icons-material';
 import { Badge } from '@mui/material';
 import React from 'react'
 import { Link } from 'react-router-dom';
@@ -85,6 +85,7 @@ const StyledLink = styled(Link)`
 
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity);
+  const wishlistQuantity = useSelector(state=>state.wishlist.wishlistQuantity);
   const user = useSelector(state=>state.user.currentUser);
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -113,6 +114,13 @@ const Navbar = () => {
                 {user && <MenuItem>
                     <Logout onClick={handleLogout}/>
                 </MenuItem>}
+                <StyledLink to="/wishlist">
+                    <MenuItem>
+                        <Badge badgeContent={wishlistQuantity} color="error">
+                            <FavoriteBorder color="black" />
+                        </Badge>
+                    </MenuItem>
+                </StyledLink>
                 <StyledLink to="/cart">
                     <MenuItem>
                         <Badge badgeContent={quantity} color="secondary">

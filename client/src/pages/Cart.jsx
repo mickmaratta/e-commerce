@@ -9,7 +9,7 @@ import { mobile } from '../responsive';
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from 'react';
 import { userRequest } from '../requestMethods';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
@@ -194,7 +194,9 @@ const Cart = () => {
                 <TopButton>CONTINUE SHOPPING</TopButton>
                 <TopTexts>
                     <TopText>Shopping Bag({quantity})</TopText>
-                    <TopText>Your Wishlist(0)</TopText>
+                    <Link className="link" to="/wishlist">
+                        <TopText>Your Wishlist(0)</TopText>
+                    </Link>
                 </TopTexts>
             </Top>
             <Bottom>

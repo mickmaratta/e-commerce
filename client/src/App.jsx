@@ -1,3 +1,4 @@
+import "./app.css"
 import Home from "./pages/Home";
 import {
   BrowserRouter as Router,
@@ -12,6 +13,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Success from "./pages/Success";
 import { useLayoutEffect } from "react";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   const Wrapper = ({children}) => {
@@ -31,6 +33,7 @@ function App() {
               <Route path="products/:category" element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="wishlist" element={<Wishlist />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="success" element={<Success />} />
