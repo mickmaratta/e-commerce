@@ -126,10 +126,8 @@ const Wishlist = () => {
 
   const handleRemove = (id) => {
     setWishlistProducts(wishlistProducts.filter(product=>product._id !== id));
-    dispatch(removeFavorite(wishlistProducts))
+    dispatch(removeFavorite(id))
   };
-
-  //console.log(wishlistProducts);
 
   return (
     <Container>

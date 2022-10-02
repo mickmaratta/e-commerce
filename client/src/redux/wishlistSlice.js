@@ -13,7 +13,7 @@ const wishlistSlice = createSlice({
         },
         removeFavorite: (state, action) => {
             state.wishlistQuantity -= 1;
-            state.products = action.payload;
+            state.products = state.products.filter(product=>product._id !== action.payload);
         }
     }
 });
