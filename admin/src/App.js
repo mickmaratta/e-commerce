@@ -17,6 +17,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
 import Error from "./pages/error/Error";
+import OrderList from "./pages/orderList/OrderList";
 
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Route path="/products" element={<ProductList />}/>
             <Route path="/products/:productId" element={<Product />}/>
           <Route path="/newProduct" element={<NewProduct />}/>
-          
+          <Route path="/orders" element={<OrderList />} />
         </Routes>
       </div>
       </>}

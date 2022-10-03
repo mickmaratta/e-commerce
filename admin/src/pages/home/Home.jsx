@@ -6,9 +6,11 @@ import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrderStats } from "../../redux/apiCalls";
 
 const Home = () => {
-  const [orderStats, setOrderStats] = useState([]);
+  const [userStats, setUserStats] = useState();
 
   const MONTHS = useMemo(
     () => [
@@ -29,24 +31,24 @@ const Home = () => {
   );
 
   useEffect(() => {
-    const getIncome = async () => {
-        try {
-            const res = await userRequest.get("orders/income");
-            res.data.sort((a, b) => a._id-b._id)
-            setOrderStats(res.data.map(item => {
-              return {name: MONTHS[item._id-1], "Total Sales": item.total.toFixed(2)} 
-            }))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    getIncome()
-  }, [MONTHS])
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("/users/stats");
+        const list = res.data.sort((a, b) => a._id - b._id)
+        setUserStats(list.map(item => {
+          return { name: MONTHS[item._id - 1], "Users": item.total}
+        }))
+      } catch {}
+    };
+    getStats();
+  }, [MONTHS]);
+
+
 
   return (
     <div className="home">
       <FeaturedInfo />
-      <Chart data={orderStats} title="Sales" grid dataKey="Total Sales" />
+      <Chart data={userStats} title="User Stats" grid dataKey="Users" />
       <div className="homeWidgets">
         <WidgetSm />
         <WidgetLg />

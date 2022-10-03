@@ -2,6 +2,7 @@ import { publicRequest, userRequest } from "../requestMethods";
 import { addClientSuccess, deleteClientSuccess, getClientSuccess, updateClientSuccess } from "./clientSlice";
 import { clientFailure } from "./clientSlice";
 import { clientStart } from "./clientSlice";
+import { getOrdersSuccess, orderStart, orderFailure, getOrderStatsSuccess } from "./orderSlice";
 import { 
     addProductSuccess,
     deleteProductSuccess, 
@@ -121,5 +122,29 @@ export const addClient = async (client, dispatch) => {
     } catch (error) {
         console.log(error)
         dispatch(clientFailure());
+    }
+}
+
+//GET ALL ORDERS
+export const getOrders = async (dispatch) => {
+    dispatch(orderStart());
+    try {
+        const res = await userRequest.get("/orders");
+        dispatch(getOrdersSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(orderFailure());
+    }
+}
+//GET ORDER STATS
+export const getOrderStats = async (dispatch) => {
+    dispatch(orderStart());
+    try {
+        const res = await userRequest.get("/orders/income");
+        res.data.sort((a, b) => a._id-b._id);
+        dispatch(getOrderStatsSuccess(res.data));
+    } catch (error) {
+        console.log(error)
+        dispatch(orderFailure());
     }
 }
