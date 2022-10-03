@@ -36,8 +36,9 @@ const Login = () => {
           placeholder='password' 
           onChange={e=>setPassword(e.target.value)}
         />
-        <button onClick={handleLogin} disabled={isFetching}>Login</button>
+        <button className="loginButton" onClick={handleLogin} disabled={isFetching}>Login</button>
         {error && <span className='loginError'>Wrong credentials</span> }
+        <span className='mobileMessage'>Sorry, this admin panel is only available on desktop.</span>
     </div>
   )
 }
