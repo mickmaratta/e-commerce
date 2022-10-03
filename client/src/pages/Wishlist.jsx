@@ -117,7 +117,7 @@ const Button = styled.button`
 const Wishlist = () => {
   const { products, wishlistQuantity } = useSelector((state) => state.wishlist);
   const [wishlistProducts, setWishlistProducts] = useState(products);
-  //const {quantity} = useSelector(state=>state.cart)
+  const {quantity} = useSelector(state=>state.cart)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const Wishlist = () => {
           </Link>
           <TopTexts>
             <Link className="link" to="/cart">
-              <TopText>Shopping Bag(0)</TopText>
+              <TopText>Shopping Bag({quantity})</TopText>
             </Link>
             <TopText>Your Wishlist({wishlistQuantity})</TopText>
           </TopTexts>

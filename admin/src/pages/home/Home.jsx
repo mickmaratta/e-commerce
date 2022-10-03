@@ -1,15 +1,14 @@
-import React, { useMemo, useState } from 'react';
-import Chart from '../../components/chart/Chart';
-import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
+import React, { useMemo, useState } from "react";
+import Chart from "../../components/chart/Chart";
+import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
-import { userData } from "../../dummyData"
-import WidgetSm from '../../components/widgetSm/WidgetSm';
-import WidgetLg from '../../components/widgetLg/WidgetLg';
-import { useEffect } from 'react';
-import { userRequest } from '../../requestMethods';
+import WidgetSm from "../../components/widgetSm/WidgetSm";
+import WidgetLg from "../../components/widgetLg/WidgetLg";
+import { useEffect } from "react";
+import { userRequest } from "../../requestMethods";
 
 const Home = () => {
-  const [userOrders, setUserOrders] = useState([]);
+  const [orderStats, setOrderStats] = useState([]);
 
   const MONTHS = useMemo(
     () => [
@@ -29,38 +28,31 @@ const Home = () => {
     []
   );
 
-  const getOrders = async () => {
-    try {
-      const res = await userRequest.get("/orders");
-      setUserOrders(res.data)
-    } catch {}
-  };
-
   useEffect(() => {
-    getOrders()
-  }, [])
-
-  let data = [];
-  userOrders.map(order => {
-    const newOrder = {name: MONTHS[order.createdAt.split("-")[1] - 1], "Total Sales": order.amount};
-    return data.push(newOrder);
-  })
+    const getIncome = async () => {
+        try {
+            const res = await userRequest.get("orders/income");
+            res.data.sort((a, b) => a._id-b._id)
+            setOrderStats(res.data.map(item => {
+              return {name: MONTHS[item._id-1], "Total Sales": item.total.toFixed(2)} 
+            }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getIncome()
+  }, [MONTHS])
 
   return (
-    <div className='home'>
-        <FeaturedInfo />
-        <Chart 
-        data={data}
-        title="Sales"
-        grid
-        dataKey="Total Sales"
-        />
-        <div className="homeWidgets">
-          <WidgetSm />
-          <WidgetLg />
-        </div>
+    <div className="home">
+      <FeaturedInfo />
+      <Chart data={orderStats} title="Sales" grid dataKey="Total Sales" />
+      <div className="homeWidgets">
+        <WidgetSm />
+        <WidgetLg />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

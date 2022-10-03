@@ -36,8 +36,9 @@ const FeaturedInfo = () => {
     const getIncome = async () => {
         try {
             const res = await userRequest.get("orders/income");
+            res.data.sort((a, b) => b._id-a._id)
             setIncome(res.data);
-            setPerc((res.data[1].total*100) / res.data[0].total - 100);
+            setPerc((res.data[0].total*100) / res.data[1].total - 100);
         } catch (error) {
             console.log(error)
         }
@@ -52,7 +53,7 @@ const FeaturedInfo = () => {
         <div className="featuredItem">
             <span className="featuredTitle">Revenue</span>
             <div className="featuredMoneyContainer">
-                <span className="featuredMoney">${income[1]?.total}</span>
+                <span className="featuredMoney">${income[0]?.total.toFixed(2)}</span>
                 <span className="featuredMoneyRate">
                     %{Math.abs(Math.floor(perc))}{ " " } 
                     {perc < 0 ? (
@@ -66,7 +67,7 @@ const FeaturedInfo = () => {
         <div className="featuredItem">
             <span className="featuredTitle">Total Sales</span>
             <div className="featuredMoneyContainer">
-                <span className="featuredMoney">${totalSales}</span>
+                <span className="featuredMoney">${totalSales?.toFixed(2)}</span>
             </div>
         </div>
         <div className="featuredItem">

@@ -14,7 +14,9 @@ const WidgetLg = () => {
     const getOrders = async () => {
         try {
             const res = await userRequest.get("orders");
-            setOrders(res.data)
+            res.data.sort((a, b) => b.createdAt - a.createdAt)
+            console.log(res.data);
+            setOrders(res.data.slice(res.data.length-6, res.data.length-1).reverse())
         } catch (error) {
             console.log(error)
         } 

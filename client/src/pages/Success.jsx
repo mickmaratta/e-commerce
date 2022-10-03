@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import { emptyCart } from "../redux/cartSlice";
 import { userRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 
@@ -89,14 +90,18 @@ const Button = styled.button`
 `;
 const Success = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const data = location.state.stripeData;
   const cart = location.state.products;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
+  const [orderSent, setOrderSent] = useState(false)
 
   useEffect(() => {
     const createOrder = async () => {
       try {
+        setOrderSent(true);
+        //dispatch(emptyCart);
         const res = await userRequest.post("/orders", {
           userId: currentUser._id,
           products: cart.products.map((item) => ({
@@ -111,12 +116,11 @@ const Success = () => {
         console.log(err);
       }
     };
-    data && createOrder();
-  }, [cart, data, currentUser]);
+    !orderSent && createOrder();
+  }, [cart, data, currentUser, orderSent, dispatch]);
 
   return (
     <Container>
-      <Navbar />
       <OrderSummary>
         <OrderSummaryTitle>Order Summary:</OrderSummaryTitle>
         <OrderSummaryInfo>
