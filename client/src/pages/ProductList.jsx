@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
+import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 
 const Container = styled.div``;
@@ -49,7 +50,8 @@ const ProductList = () => {
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
   const [cat, setCat] = useState(location.pathname.split("/")[2]);
-  //
+  const [colors, setColors] = useState([])
+
 
   const handleFilters = (e) => {
     const value = e.target.value.toLowerCase().split(" ")[0];
@@ -71,6 +73,27 @@ const ProductList = () => {
       setCat(value);
     }
   };
+
+  useEffect(() => {
+    const getProductColors = async () => {
+      try {
+        const res = await publicRequest.get("/products");
+        let prodColors;
+        res.data.map(product => {
+          return product.color.map(prodColor => {
+            console.log(prodColor)
+            return prodColors.push(prodColor)
+          })
+        })
+        setColors(prodColors)
+      } catch (error) {
+        
+      }
+    }
+    getProductColors();
+  }, [])
+
+  console.log(colors)
 
   return (
     <Container>

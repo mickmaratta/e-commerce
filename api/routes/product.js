@@ -73,4 +73,19 @@ router.get("/", async (req, res) => {
   }
   });
 
+//GET PRODUCT COLORS
+router.get("/getColors", async (req, res) => {
+
+  try {
+    let products;
+    let productColors;
+      products = await Product.find();
+      productColors.push(products)
+
+    res.status(200).json(productColors);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  });
+
 module.exports = router;

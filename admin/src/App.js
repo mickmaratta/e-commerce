@@ -28,7 +28,7 @@ function App() {
     <Router className="App">
       <Routes>
         {!isAdmin && <>
-          <Route path="/login" element={<Login />}/>
+          <Route path="/" element={<Login />}/>
           <Route path="*" element={<Error />} />
         </>}
       </Routes>

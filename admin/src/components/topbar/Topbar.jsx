@@ -6,11 +6,9 @@ import { logout } from '../../redux/userSlice';
 
 const Topbar = () => {
   const adminId = useSelector(state=>state.user.currentUser._id)
-  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    navigate("/login", { replace: true })
     dispatch(logout())
   };
 
