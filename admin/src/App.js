@@ -1,9 +1,9 @@
-import "./app.css"
+import "./app.css";
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Routes,
   Route,
-  useNavigate,
+  Outlet,
 } from "react-router-dom";
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
@@ -19,40 +19,40 @@ import { useSelector } from "react-redux";
 import Error from "./pages/error/Error";
 import OrderList from "./pages/orderList/OrderList";
 
-
 function App() {
-  const currentUser = useSelector(state=>state.user.currentUser)
-  const isAdmin = currentUser ? currentUser.isAdmin : false
-  
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const isAdmin = currentUser ? currentUser.isAdmin : false;
+
+  const Layout = () => {
+    return (
+      <>
+        <Topbar />
+        <div className="container">
+          <Sidebar />
+          <Outlet />
+        </div>
+      </>
+    );
+  };
+
   return (
-    <Router className="App">
-      <Routes>
-        {!isAdmin && <>
-          <Route path="/" element={<Login />}/>
-          <Route path="*" element={<Error />} />
-        </>}
-      </Routes>
-
-      {isAdmin && <>
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Routes>
-          <Route path="*" element={<Error />} />
-          <Route path="/" element={<Home />}/>
-          <Route path="/login" element={<Login />}/>
-          <Route path="/users" element={<UserList />}/>  
-            <Route path="/users/:userId" element={<User />}/> 
-          <Route path="/newUser" element={<NewUser />}/>
-          <Route path="/products" element={<ProductList />}/>
-            <Route path="/products/:productId" element={<Product />}/>
-          <Route path="/newProduct" element={<NewProduct />}/>
-          <Route path="/orders" element={<OrderList />} />
-        </Routes>
-      </div>
-      </>}
-
-    </Router>
+    <HashRouter className="App">
+          <Routes>
+            {!isAdmin && <Route path="/" element={<Login />} />}
+            {isAdmin && (<Route element={<Layout />}>
+              <Route path="*" element={<Error />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/users/:userId" element={<User />} />
+              <Route path="/newUser" element={<NewUser />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/products/:productId" element={<Product />} />
+              <Route path="/newProduct" element={<NewProduct />} />
+              <Route path="/orders" element={<OrderList />} />
+            </Route>)}
+          </Routes>
+    </HashRouter>
   );
 }
 
