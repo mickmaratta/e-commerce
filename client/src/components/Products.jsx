@@ -4,6 +4,7 @@ import Product from './Product';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useMemo } from 'react';
 
 const Container = styled.div`
   padding: 20px;
@@ -12,7 +13,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ cat, filters, sort, colors, setColors }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -55,6 +56,14 @@ const Products = ({ cat, filters, sort }) => {
       );
     }
   }, [sort]);
+
+  useMemo(() => {
+    const newColors = products.reduce((results, item) => {
+      (results[item.color] = results[item.color] || []).push(item)
+      return results
+    }, {});
+    setColors(Object.keys(newColors))
+  }, [products, setColors])
 
   return (
     <Container>
